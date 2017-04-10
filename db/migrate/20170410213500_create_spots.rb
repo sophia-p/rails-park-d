@@ -1,10 +1,11 @@
 class CreateSpots < ActiveRecord::Migration[5.0]
   def change
     create_table :spots do |t|
-      t.references :user_id
-      t.string :location
-      t.boolean :precheckout
-      t.boolean :checkout
+      t.references :user, null: false
+      t.float :lat, null: false
+      t.float :long, null: false
+      t.boolean :precheckout, null: false, default: false
+      t.boolean :checkout, null: false, default: false
 
       t.timestamps
     end
