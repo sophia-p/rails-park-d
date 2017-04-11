@@ -1,5 +1,26 @@
 $(document).ready(function() {
   initMap();
+  $("#check-in").on("click", function(e){
+    e.preventDefault();
+    window.navigator.geolocation.getCurrentPosition(function(position){
+
+      coords = [position.coords.latitude, position.coords.longitude];
+      $.ajax({
+        url: "/spots",
+        method: "post",
+        data: { spot: {
+          user_id: parseInt(this.name),
+          lat: coords[0],
+          long: coords[1],
+          }
+        }
+      }).done(function(response){
+        debugger;
+      });
+    });
+
+  });
+
   // all the code you want to run when the page loads
   // $("#whatever").on("click", function(){
   //
@@ -14,6 +35,7 @@ function initMap() {
     center: {lat: -34.397, lng: 150.644},
     zoom: 15
   });
+
   infoWindow = new google.maps.InfoWindow;
 
   // Try HTML5 geolocation.
@@ -34,7 +56,7 @@ function initMap() {
           style: google.maps.NavigationControlStyle.SMALL
         },
           mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
+      };
         map = new google.maps.Map( document.getElementById("map"), mapOptions);
         directionsDisplay.setMap(map);
         directionsDisplay.setPanel(document.getElementById('panel'));
@@ -47,8 +69,8 @@ function initMap() {
         directionsService.route(request, function (response, status) {
           if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
-            }
-          });
+          }
         });
-      }
+    });
+  }
 }
