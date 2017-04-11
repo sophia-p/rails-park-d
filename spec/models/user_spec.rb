@@ -27,21 +27,24 @@ RSpec.describe User, type: :model do
 			end
 	end
 
-	# describe "user methods" do
-	# 	before(:each) do 
-	# 		@johndoe = User.create!(username:"johndoe", email:"johndoe@email.com", password: "123456")
-	# 		@johndoe.spot = Spot.new(long: 74, lat: 42)
-	# 		@spot_1 = @johndoe.spot
+	describe "user methods" do
+		before(:each) do 
+			@johndoe = User.create!(username:"johndoe", email:"johndoe@email.com", password: "123456")
+			@johndoe.spot = Spot.new(long: 74, lat: 42)
+		
 
-	# 		@lucysmith = User.create!(username:"lucysmith", email:"lucysmith@email.com", password: "123456")
-	# 		@lucysmith.spot = Spot.new(long: 74, lat: 42)
-	# 		@spot_1 = @lucysmith.spot
-	# 	end
+			@lucysmith = User.create!(username:"lucysmith", email:"lucysmith@email.com", password: "123456")
+			@lucysmith.spot = Spot.new(long: 74, lat: 42)
+		
+			
+		end
 
-	# 	it 'returns an array of available spots' do
-	# 		@johndoe.spot.checkout = true
-	# 		expect(@johndoe.active_spots).to eq []
-	# 	end
-	# end
+		it 'returns an array of available spots' do
+			@johndoe.spot.checkout = true
+			expect(@johndoe.activate_spots).to eq [@johndoe.spot]
+		end
+
+
+	end
 
 end
