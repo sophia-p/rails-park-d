@@ -1,13 +1,39 @@
-<h1>Welcome to Park'd</h1>
-<p>Share a Spot - Find a Spot</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Park'd</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to Park'd</h1>
+    <p>Share a Spot - Find a Spot</p>
+    <br>
+    <button type="button" onclick=
+      "alert('You Found a Spot!'); location.href = '/spots/destroy'"
+     name="check-in">Check In</button>
 
-<div class="">
-
-<p>MAP GOES HERE!!</p>
-
-
-<button type="button" onclick=
-  "alert('You Found a Spot!'); location.href = '/spots/destroy'"
- name="check-in">Check In</button>
-
-<button type="button" onclick="alert('Spot Taken - Looking for a new spot')" name="spot-taken">Spot Taken</button>
+    <button type="button" onclick="alert('Spot Taken - Looking for a new spot')" name="spot-taken">Spot Taken</button>
+    <input id="pac-input" class="controls" type="text"
+        placeholder="Enter a location">
+    <div id="map"></div>
+    <div id="infowindow-content">
+      <span id="place-name"  class="title"></span><br>
+      Place ID <span id="place-id"></span><br>
+      <span id="place-address"></span>
+  </div>
+  </body>
+</html>
