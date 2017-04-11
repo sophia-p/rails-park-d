@@ -1,44 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Park'd</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-  </head>
-  <body>
-
-    <h1>Welcome to Park'd</h1>
-    <p>Share a Spot - Find a Spot</p>
-    <br>
-      <div id="spot-bottons">
-        <% if current_user.spot %>
-          <%= render "/spots/precheckout-checkout" %>
-        <% else %>
-          <%= render "/spots/check_in-spot_taken" %>
-        <% end %>
-      </div>
-
-    <input id="pac-input" class="controls" type="text"
-        placeholder="Enter a location">
-    <input id="destination-input" class="controls" type="text"
-    placeholder="Enter a destination location">
-    <button id="des-button" type="button" name="button">enter</button>
-
-
-    <div id="map"></div>
-
-  </body>
-</html>
+<h1>Welcome to Park'd</h1>
+<p>Share a Spot - Find a Spot</p>
+<br>
+<%= render "/home/map" %>
