@@ -10,19 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170410213914) do
+ActiveRecord::Schema.define(version: 20170411132534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "spots", force: :cascade do |t|
-    t.integer  "user_id"
-    t.float    "lat"
-    t.float    "long"
-    t.boolean  "precheckout"
-    t.boolean  "checkout"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "user_id",                     null: false
+    t.float    "lat",                         null: false
+    t.float    "long",                        null: false
+    t.boolean  "precheckout", default: false, null: false
+    t.boolean  "checkout",    default: false, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["user_id"], name: "index_spots_on_user_id", using: :btree
   end
 
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20170410213914) do
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.integer  "points",                 default: 10, null: false
-    t.integer  "spot_id"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -44,7 +43,6 @@ ActiveRecord::Schema.define(version: 20170410213914) do
     t.datetime "updated_at",                          null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-    t.index ["spot_id"], name: "index_users_on_spot_id", using: :btree
   end
 
 end

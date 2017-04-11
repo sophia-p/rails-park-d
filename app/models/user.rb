@@ -6,4 +6,14 @@ class User < ApplicationRecord
   has_one :spot
   validates :points, :username, presence: true
   validates :username, uniqueness: true
+
+  def user_checkout
+  	@active_spots = []
+  	if self.spot && self.spot.checkout == true
+  		@active_spots << spot
+  	end
+
+  end
+
+
 end
