@@ -19,8 +19,25 @@
     </style>
   </head>
   <body>
+
+    <h1>Welcome to Park'd</h1>
+    <p>Share a Spot - Find a Spot</p>
+    <br>
+      <div id="spot-bottons">
+        <% if current_user.spot %>
+          <%= render "/spots/precheckout-checkout" %>
+        <% else %>
+          <%= render "/spots/check_in-spot_taken" %>
+        <% end %>
+      </div>
+
     <input id="pac-input" class="controls" type="text"
         placeholder="Enter a location">
+    <input id="destination-input" class="controls" type="text"
+    placeholder="Enter a destination location">
+    <button id="des-button" type="button" name="button">enter</button>
+    
+
     <div id="map"></div>
     <div id="infowindow-content">
       <span id="place-name"  class="title"></span><br>

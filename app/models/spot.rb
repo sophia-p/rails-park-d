@@ -1,4 +1,5 @@
 class Spot < ApplicationRecord
+
 	before_create :set_checkouts
 	belongs_to :user
 	validates :long, :lat, :precheckout, :checkout, presence: true
@@ -28,4 +29,5 @@ class Spot < ApplicationRecord
 		self.precheckout = false
 		self.checkout = false
 	end
+
 end
