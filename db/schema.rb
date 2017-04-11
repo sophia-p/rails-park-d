@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(version: 20170411132534) do
   create_table "spots", force: :cascade do |t|
     t.integer  "user_id",                     null: false
     t.float    "lat",                         null: false
-    t.float    "long",                        null: false
-    t.boolean  "precheckout", default: false, null: false
-    t.boolean  "checkout",    default: false, null: false
+    t.float    "lng",                         null: false
+    t.boolean  "precheckout", default: false
+    t.boolean  "checkout",    default: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.index ["user_id"], name: "index_spots_on_user_id", using: :btree

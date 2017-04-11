@@ -30,4 +30,5 @@ class Spot < ApplicationRecord
 		self.checkout = false
 	end
 
+
 end
