@@ -26,4 +26,22 @@ RSpec.describe User, type: :model do
 				expect{second_user.save!}.to raise_error(ActiveRecord::RecordInvalid)
 			end
 	end
+
+	# describe "user methods" do
+	# 	before(:each) do 
+	# 		@johndoe = User.create!(username:"johndoe", email:"johndoe@email.com", password: "123456")
+	# 		@johndoe.spot = Spot.new(long: 74, lat: 42)
+	# 		@spot_1 = @johndoe.spot
+
+	# 		@lucysmith = User.create!(username:"lucysmith", email:"lucysmith@email.com", password: "123456")
+	# 		@lucysmith.spot = Spot.new(long: 74, lat: 42)
+	# 		@spot_1 = @lucysmith.spot
+	# 	end
+
+	# 	it 'returns an array of available spots' do
+	# 		@johndoe.spot.checkout = true
+	# 		expect(@johndoe.active_spots).to eq []
+	# 	end
+	# end
+
 end

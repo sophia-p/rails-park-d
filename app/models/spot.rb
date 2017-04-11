@@ -16,6 +16,7 @@ class Spot < ApplicationRecord
 		end
 	end
 
+
 	# def spots_within_radius
 	# end
 end
