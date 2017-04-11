@@ -1,5 +1,10 @@
 class SpotsController < ApplicationController
+  def show
+    @
+  end
+
   def new
+    @spot = Spot.new
   end
 
   def create
@@ -7,6 +12,14 @@ class SpotsController < ApplicationController
 
     @spot.save
     redirect_to @spot
+  end
+
+  def edit
+    @spot = Spot.find
+  end
+
+  def destroy
+
   end
 
   private
