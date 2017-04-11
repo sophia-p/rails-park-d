@@ -15,7 +15,6 @@ class SpotsController < ApplicationController
     @spot = Spot.new(spot_params)
 
     @spot.save
-    redirect_to @spot
   end
 
   def edit
@@ -38,6 +37,6 @@ class SpotsController < ApplicationController
 
   private
   def spot_params
-    params.require(:spot).permit(:user_id, :lat, :lng, :precheckout, :checkout)
+    params.require(:spot).permit(:user_id, :lat, :lng)
   end
 end

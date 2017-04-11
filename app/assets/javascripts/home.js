@@ -53,14 +53,14 @@ $(document).ready(function() {
 
   $("#check-in").on("click", function(e){
     e.preventDefault();
+    USER_ID = parseInt(this.name)
     window.navigator.geolocation.getCurrentPosition(function(position){
-
       coords = [position.coords.latitude, position.coords.longitude];
       $.ajax({
         url: "/spots",
         method: "post",
         data: { spot: {
-          user_id: parseInt(this.name),
+          user_id: USER_ID,
           lat: coords[0],
           lng: coords[1],
           }
