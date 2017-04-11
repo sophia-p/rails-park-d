@@ -49,18 +49,31 @@ $(document).ready(function() {
               }
             });
 
+  $("#check-in").on("click", function(e){
+    e.preventDefault();
+    window.navigator.geolocation.getCurrentPosition(function(position){
 
-        }else{
-          alert('Geocide was not successful for the following reason:' + status)
+      coords = [position.coords.latitude, position.coords.longitude];
+      $.ajax({
+        url: "/spots",
+        method: "post",
+        data: { spot: {
+          user_id: parseInt(this.name),
+          lat: coords[0],
+          long: coords[1],
+          }
         }
+      }).done(function(response){
+        debugger;
       });
-  });
-})
+    });
 
-var map, infoWindow;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 15
   });
+
+  // all the code you want to run when the page loads
+  // $("#whatever").on("click", function(){
+  //
+  // })
+  // this should include *binding* event handlers to nodes
+
 }

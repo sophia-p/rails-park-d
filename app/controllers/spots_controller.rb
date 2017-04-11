@@ -3,16 +3,7 @@ class SpotsController < ApplicationController
     @spot = Spot.find_by(params[:lat, :long])
   end
 
-  def destroy
-    @spot = Spot.find_by(params[:lat, :long])
-    if @spot.precheckout
-      @spot.user.precheckout_point
-    else
-      @spot.user.checkout_point
-    end
-    @spot.destroy
-    redirect_to spots_create
-  end
+
 
   def new
     @spot = Spot.new
@@ -29,6 +20,18 @@ class SpotsController < ApplicationController
     @spot = Spot.find_by(params[:lat, :long])
   end
 
+  def destroy
+    if Spot.find_by(params[:lat, :long])
+      @spot = Spot.find_by(params[:lat, :long])
+      if @spot.precheckout
+        @spot.user.precheckout_point
+      else
+        @spot.user.checkout_point
+      end
+      @spot.destroy
+    end
+      redirect_to spots_create
+  end
 
 
   private

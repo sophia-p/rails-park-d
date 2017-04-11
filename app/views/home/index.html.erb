@@ -22,11 +22,14 @@
     <h1>Welcome to Park'd</h1>
     <p>Share a Spot - Find a Spot</p>
     <br>
-    <button type="button" onclick=
-      "alert('You Found a Spot!'); location.href = '/spots/destroy'"
-     name="check-in">Check In</button>
+      <div id="spot-bottons">
+        <% if current_user.spot %>
+          <%= render "/spots/precheckout-checkout" %>
+        <% else %>
+          <%= render "/spots/check_in-spot_taken" %>
+        <% end %>
+      </div>
 
-    <button type="button" onclick="alert('Spot Taken - Looking for a new spot')" name="spot-taken">Spot Taken</button>
     <input id="pac-input" class="controls" type="text"
         placeholder="Enter a location">
     <input id="destination-input" class="controls" type="text"
