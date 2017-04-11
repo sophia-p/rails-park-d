@@ -10,3 +10,5 @@
 5) limit number of spots seen by points user has
 
 6) navigate to next closest spot when a spot is taken
+
+7) Time lapse when spots disappear
