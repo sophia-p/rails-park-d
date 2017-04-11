@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.destroy_all!
+Spot.destory_all!
 
 5.times do |i|
   User.create(username: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(8), points: rand(10..25))
