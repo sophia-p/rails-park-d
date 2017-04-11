@@ -1,9 +1,11 @@
 class SpotsController < ApplicationController
-  def show
-    @spot = Spot.find_by(params[:lat, :long])
+  def index
+    @spots = Spot.all
   end
 
-
+  def show
+    @spot = Spot.find_by(params[:lat, :lng])
+  end
 
   def new
     @spot = Spot.new
@@ -17,12 +19,12 @@ class SpotsController < ApplicationController
   end
 
   def edit
-    @spot = Spot.find_by(params[:lat, :long])
+    @spot = Spot.find_by(params[:lat, :lng])
   end
 
   def destroy
-    if Spot.find_by(params[:lat, :long])
-      @spot = Spot.find_by(params[:lat, :long])
+    if Spot.find_by(params[:lat, :lng])
+      @spot = Spot.find_by(params[:lat, :lng])
       if @spot.precheckout
         @spot.user.precheckout_point
       else
@@ -36,6 +38,6 @@ class SpotsController < ApplicationController
 
   private
   def spot_params
-    params.require(:spot).permit(:user_id, :lat, :long, :precheckout, :checkout)
+    params.require(:spot).permit(:user_id, :lat, :lng, :precheckout, :checkout)
   end
 end

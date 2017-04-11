@@ -56,7 +56,6 @@ $(document).ready(function() {
     window.navigator.geolocation.getCurrentPosition(function(position){
 
       coords = [position.coords.latitude, position.coords.longitude];
-      debugger;
       $.ajax({
         url: "/spots",
         method: "post",
@@ -67,13 +66,10 @@ $(document).ready(function() {
           }
         }
       }).done(function(response){
-        debugger;
       });
     });
 
   });
-
-
 
 })
 
