@@ -1,8 +1,4 @@
-var latitude,
-    longitude,
-    coords;
 $(document).ready(function() {
-
   initMap();
   infoWindow = new google.maps.InfoWindow;
   // Try HTML5 geolocation.
@@ -48,6 +44,11 @@ $(document).ready(function() {
               directionsDisplay.setDirections(response);
               }
             });
+        } else {
+          alert('Geocide was not successful for the following reason:' + status)
+        }
+      });
+    });
 
   $("#check-in").on("click", function(e){
     e.preventDefault();
@@ -60,7 +61,7 @@ $(document).ready(function() {
         data: { spot: {
           user_id: parseInt(this.name),
           lat: coords[0],
-          long: coords[1],
+          lng: coords[1],
           }
         }
       }).done(function(response){
@@ -76,4 +77,13 @@ $(document).ready(function() {
   // })
   // this should include *binding* event handlers to nodes
 
+})
+
+
+var map, infoWindow;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 15
+  });
 }
