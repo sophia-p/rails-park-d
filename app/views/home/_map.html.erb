@@ -1,0 +1,19 @@
+<div id="spot-bottons">
+  <% if current_user.spot %>
+    <%= render "/spots/precheckout-checkout" %>
+  <% else %>
+    <%= render "/spots/check_in-spot_taken" %>
+  <% end %>
+</div>
+
+<input id="destination-input" class="controls" type="text"
+placeholder="Enter a destination location">
+<button id="des-button" type="button" name="button">enter</button>
+
+
+<div id="map"></div>
+<div id="infowindow-content">
+  <span id="place-name"  class="title"></span><br>
+  Place ID <span id="place-id"></span><br>
+  <span id="place-address"></span>
+</div>

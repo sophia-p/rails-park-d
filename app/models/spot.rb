@@ -2,7 +2,8 @@ class Spot < ApplicationRecord
 
 	before_create :set_checkouts
 	belongs_to :user
-	validates :lng, :lat, :precheckout, :checkout, presence: true
+	validates :lng, :lat, presence: true
+
 
 	# def precheckout
 	# 	if self.user != nil
@@ -29,5 +30,6 @@ class Spot < ApplicationRecord
 		self.precheckout = false
 		self.checkout = false
 	end
+
 
 end
