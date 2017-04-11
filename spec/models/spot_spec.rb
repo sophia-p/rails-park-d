@@ -22,7 +22,18 @@ RSpec.describe Spot, type: :model do
 
   end
 
-  # describe "spot methods" do
-  # end
+  describe "spot methods" do
+  		before(:each) do 
+			@johndoe = User.create!(username:"johndoe", email:"johndoe@email.com", password: "123456")
+			@spot_1 = Spot.new(long: 74, lat: 42)
+		end
+
+		# it "has precheckout set to false upon insantiation" do
+		# 	@johndoe.spot = @spot_1
+		# 	@spot_1.save!
+		# 	expect(@spot_1.precheckout).to be false
+		# end
+
+  end
 
 end
