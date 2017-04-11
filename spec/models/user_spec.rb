@@ -32,19 +32,13 @@ RSpec.describe User, type: :model do
 			@johndoe = User.create!(username:"johndoe", email:"johndoe@email.com", password: "123456")
 			@johndoe.spot = Spot.new(long: 74, lat: 42)
 		
-
 			@lucysmith = User.create!(username:"lucysmith", email:"lucysmith@email.com", password: "123456")
-			@lucysmith.spot = Spot.new(long: 74, lat: 42)
-		
-			
+			@lucysmith.spot = Spot.new(long: 74, lat: 42)					
 		end
 
 		it 'returns an array of available spots' do
 			@johndoe.spot.checkout = true
 			expect(@johndoe.activate_spots).to eq [@johndoe.spot]
 		end
-
-
 	end
-
 end

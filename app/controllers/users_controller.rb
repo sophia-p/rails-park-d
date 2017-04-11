@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	before_action :authenticate_user!
 	def show
 		@user = User.find_by(id: params[:id])
-		if require_owner == true
+		if require_owner
 			@user
 		else
 			redirect_to root_path
