@@ -1,5 +1,6 @@
 $(document).ready(function() {
   initMap();
+
   infoWindow = new google.maps.InfoWindow;
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
@@ -71,13 +72,10 @@ $(document).ready(function() {
 
   });
 
-  // all the code you want to run when the page loads
-  // $("#whatever").on("click", function(){
-  //
-  // })
-  // this should include *binding* event handlers to nodes
+
 
 })
+
 
 
 var map, infoWindow;
@@ -86,4 +84,5 @@ function initMap() {
     center: {lat: -34.397, lng: 150.644},
     zoom: 15
   });
+
 }
