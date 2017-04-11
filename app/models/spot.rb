@@ -4,6 +4,7 @@ class Spot < ApplicationRecord
 	belongs_to :user
 	validates :lng, :lat, presence: true
 
+
 	# def precheckout
 	# 	if self.user != nil
 	# 		self.user.points += 10
