@@ -71,6 +71,22 @@ $(document).ready(function() {
 
   });
 
+  $("#precheckout").on("click", function(e){
+    e.preventDefault();
+    var spot_id = parseInt(this.name)
+    $.ajax({
+      url: "/spots/<%= spot_id %>",
+      method: "put",
+      data: { spot: {
+        user_id: nil,
+        precheckout: true
+        }
+      }
+    }).done(function(response){
+      debugger;
+    })
+  })
+
 })
 
 
