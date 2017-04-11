@@ -1,8 +1,10 @@
 class Spot < ApplicationRecord
+	before_create :set_checkouts
 	belongs_to :user
 	validates :long, :lat, :precheckout, :checkout, presence: true
 
 	def precheckout
+		self.user.points += 10
 		self.precheckout = true
 	end
 
@@ -19,4 +21,9 @@ class Spot < ApplicationRecord
 
 	# def spots_within_radius
 	# end
+
+	def set_checkouts
+		self.precheckout = false
+		self.checkout = false
+	end
 end
