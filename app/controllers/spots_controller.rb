@@ -10,9 +10,9 @@ class SpotsController < ApplicationController
     Spot.spot_refresh
     @user = current_user
     if @user.current_destination
-      @local_spots = Spot.spots_in_range(lat: @user.current_destination.des_lat, lng: @user.current_destination.des_lng)
+      @local_spots = Spot.spots_in_range(lat: @user.current_destination.des_lat, lng: @user.current_destination.des_lng, user_id: current_user.id)
     else
-      @local_spots = Spot.spots_in_range(lat: params[:lat].to_i, lng: params[:lng].to_i)
+      @local_spots = Spot.spots_in_range(lat: params[:lat].to_i, lng: params[:lng].to_i, user_id: current_user.id)
     end
     render json: {:spots => @local_spots}
   end
