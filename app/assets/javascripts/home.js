@@ -55,7 +55,6 @@ $(document).ready(function() {
             destination: { lat: marker.postition.lat(), lng: marker.postition.lng() },
             travelMode: google.maps.DirectionsTravelMode.DRIVING
           };
-          USER_ID = parseInt(this.name)
           $.ajax({
             url: "/destinations",
             method: "post",
@@ -139,6 +138,7 @@ $(document).ready(function() {
     })
   })
 
+
   $("#spot-taken").on("click", function(e){
     e.preventDefault();
     window.navigator.geolocation.getCurrentPosition(function(position){
@@ -158,6 +158,7 @@ $(document).ready(function() {
     });
 
   });
+
 
 
 })
