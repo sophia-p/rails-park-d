@@ -1,5 +1,21 @@
 $(document).ready(function() {
   initMap();
+  $.getJSON('/spots', function(results){
+    for (var i = 0; i < results.spots.length; i++) {
+      var jsonlatitude = results.spots[i].lat;
+      var jsonlong = results.spots[i].lng;
+      var latLng = new google.maps.LatLng(jsonlatitude, jsonlong);
+      var marker = new google.maps.Marker({
+        position: latLng,
+        map: map,
+        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+      })
+    }
+  })
+
+
+
+
 
   infoWindow = new google.maps.InfoWindow;
   // Try HTML5 geolocation.
@@ -43,6 +59,18 @@ $(document).ready(function() {
           directionsService.route(request, function (response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
               directionsDisplay.setDirections(response);
+              $.getJSON('/spots', function(results){
+                for (var i = 0; i < results.spots.length; i++) {
+                  var jsonlatitude = results.spots[i].lat;
+                  var jsonlong = results.spots[i].lng;
+                  var latLng = new google.maps.LatLng(jsonlatitude, jsonlong);
+                  var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                  })
+                }
+              })
               }
             });
         } else {
@@ -86,6 +114,7 @@ $(document).ready(function() {
       debugger;
     })
   })
+
 
 })
 
