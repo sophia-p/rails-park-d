@@ -39,6 +39,17 @@ class User < ApplicationRecord
     self.points += 1
   end
 
+  def tier_levels
+    [200, 150, 100, 75, 50, 25]
+  end
+
+  # def next_tier
+  #   current_level = tier_levels.select do |tier|
+  #     tier < self.points
+  #   end
+  #   tier_levels[tier_levels.index(current_level)-1]
+  # end
+
   def tier
     radius = 0.0034
     if self.points > 200
