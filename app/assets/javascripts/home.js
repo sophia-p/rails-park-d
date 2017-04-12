@@ -145,6 +145,27 @@ $(document).ready(function() {
   })
 
 
+  $("#spot-taken").on("click", function(e){
+    e.preventDefault();
+    window.navigator.geolocation.getCurrentPosition(function(position){
+      rounded_lat = Number((position.coords.latitude).toFixed(4));
+      rounded_lng = Number((position.coords.longitude).toFixed(4));
+      coords = [rounded_lat, rounded_lng];
+      $.ajax({
+        url: "/spots/destroy",
+        method: "delete",
+        data: { spot: {
+          lat: coords[0],
+          lng: coords[1],
+          }
+        }
+      }).done(function(response){
+      });
+    });
+
+  });
+
+
 
 })
 
