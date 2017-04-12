@@ -44,7 +44,6 @@ $(document).ready(function() {
       geocoder = new google.maps.Geocoder();
       var marker = null;
       geocoder.geocode({'address' : address}, function(results, status){
-        console.log(1)
         if(status == 'OK') {
           map.setCenter(results[0].geometry.location);
           marker = new google.maps.Marker({
@@ -56,23 +55,34 @@ $(document).ready(function() {
             destination: { lat: marker.postition.lat(), lng: marker.postition.lng() },
             travelMode: google.maps.DirectionsTravelMode.DRIVING
           };
-          directionsService.route(request, function (response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-              directionsDisplay.setDirections(response);
-              $.getJSON('/spots', function(results){
-                for (var i = 0; i < results.spots.length; i++) {
-                  var jsonlatitude = results.spots[i].lat;
-                  var jsonlong = results.spots[i].lng;
-                  var latLng = new google.maps.LatLng(jsonlatitude, jsonlong);
-                  var marker = new google.maps.Marker({
-                    position: latLng,
-                    map: map,
-                    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-                  })
+          USER_ID = parseInt(this.name)
+          $.ajax({
+            url: "/destinations",
+            method: "post",
+            data:{ destination: {
+              des_lat: marker.postition.lat(),
+              des_lng: marker.postition.lng(),
+            }}
+          }).done(function(response){
+            directionsService.route(request, function (response, status) {
+              if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+                $.getJSON('/spots', function(results){
+                  for (var i = 0; i < results.spots.length; i++) {
+                    var jsonlatitude = results.spots[i].lat;
+                    var jsonlong = results.spots[i].lng;
+                    var latLng = new google.maps.LatLng(jsonlatitude, jsonlong);
+                    var marker = new google.maps.Marker({
+                      position: latLng,
+                      map: map,
+                      icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                    })
+                  }
+                })
                 }
-              })
-              }
-            });
+              });
+          })
+
         } else {
           alert('Geocide was not successful for the following reason:' + status)
         }
@@ -129,6 +139,7 @@ $(document).ready(function() {
     })
   })
 
+  
 
 })
 

@@ -12,11 +12,23 @@ class Spot < ApplicationRecord
 	# end
 
 
-	def self.spot_in_range(lat, lng)
-		# +/-0.00003
-		lat = lat.round(4)
-		lng = lng.round(4)
-		self.find_by(lat: lat, lng: lng)
+	def self.on_existing_spot(args)
+		# +/-0.0001
+		round_lat = args[:lat].to_i.round(4)
+		round_lng = args[:lng].to_i.round(4)
+		self.find_by(lat: round_lat, lng: round_lng)
+	end
+
+	def self.spots_in_range(args)
+		# 0.0034
+		range = 0.0034
+		lat_range = [args[:lat] - range, args[:lat] + range]
+		long_range = [args[:lng] - range, args[:lng] + range]
+		self.available_spots.where(lat: lat_range[0]..lat_range[1])
+	end
+
+	def self.available_spots
+		self.where("precheckout = true OR checkout = true")
 	end
 
 	def checkout?
@@ -36,7 +48,7 @@ class Spot < ApplicationRecord
 	end
 
 	def self.spot_refresh
-		self.each do |spot|
+		self.all.each do |spot|
 			spot.timelapsed_checkout
 			spot.destroy_spot
 		end
@@ -57,6 +69,7 @@ class Spot < ApplicationRecord
       		self.user.checkout_point
     	end
 	end
+
 
 
 end
