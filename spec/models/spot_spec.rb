@@ -42,6 +42,8 @@ RSpec.describe Spot, type: :model do
 		end
 
 		context "checkout methods" do
+
+			it 
 			it "sets checkout to true" do
 				@spot_1.save!
 				# @spot_1.checkout?
