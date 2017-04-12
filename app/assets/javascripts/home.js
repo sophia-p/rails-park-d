@@ -32,6 +32,12 @@ $(document).ready(function() {
       var destinationAutocomplete = new google.maps.places.Autocomplete(
       destinationInput, {placeIdOnly: true});
 
+      var url = "/spots?lat=" + latitude + "&"+ "lng=" + longitude;
+      $.ajax({
+        url: url,
+        method: "get"
+      }).done(function(response){
+      });
     })
   }
   $("#des-button").on("click", function(){
