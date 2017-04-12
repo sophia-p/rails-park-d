@@ -8,12 +8,9 @@ class SpotsController < ApplicationController
 
   def index
     Spot.spot_refresh
-    @user = current_user
-    if @user.current_destination
-      @local_spots = Spot.spots_in_range(lat: @user.current_destination.des_lat, lng: @user.current_destination.des_lng, user_id: current_user.id)
-    else
-      @local_spots = Spot.spots_in_range(lat: params[:lat].to_i, lng: params[:lng].to_i, user_id: current_user.id)
-    end
+
+    @local_spots = Spot.spots_in_range(lat: params[:lat].to_f, lng: params[:lng].to_f, user_id: current_user.id)
+
     render json: {:spots => @local_spots}
   end
 
