@@ -1,5 +1,5 @@
 <div id="spot-bottons">
-  <% if current_user.spot %>
+  <% if current_user.checkedin_spot? %>
     <%= render "/spots/precheckout-checkout" %>
   <% else %>
     <%= render "/spots/check_in-spot_taken" %>

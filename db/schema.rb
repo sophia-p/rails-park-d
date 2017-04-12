@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20170411132534) do
   enable_extension "plpgsql"
 
   create_table "spots", force: :cascade do |t|
-    t.integer  "user_id",                     null: false
+    t.integer  "user_id"
     t.float    "lat",                         null: false
     t.float    "lng",                         null: false
     t.boolean  "precheckout", default: false
