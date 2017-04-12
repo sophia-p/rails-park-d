@@ -3,7 +3,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+
+  has_many :destinations
   has_many :spots
+
   validates :points, :username, presence: true
   validates :username, uniqueness: true
 
@@ -20,6 +24,10 @@ class User < ApplicationRecord
   	if self.spot && self.spot.checkout == true
   		active_spots << spot
   	end
+  end
+
+  def current_destination
+    self.destinations.last
   end
 
   def precheckout_point
