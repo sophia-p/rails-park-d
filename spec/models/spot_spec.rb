@@ -1,6 +1,9 @@
 require 'rails_helper'
 
+
 RSpec.describe Spot, type: :model do
+include ActiveSupport::Testing::TimeHelpers
+
   describe "validations" do
   	let (:spot_without_longitude) {Spot.new(lat: 48)}
   	let (:spot_without_latitude) {Spot.new(lng: 48)}
@@ -25,7 +28,7 @@ RSpec.describe Spot, type: :model do
   describe "class methods" do
   		before(:each) do 
 			@johndoe = User.create!(username:"johndoe", email:"johndoe@email.com", password: "123456")
-			@spot_1 = @johndoe.spots.new(lng: 74, lat: 42)
+			@spot_1 = @johndoe.spots.new(lat: 40.7098, lng: -74.0099)
 		end
 
 		context "default values" do
@@ -43,12 +46,16 @@ RSpec.describe Spot, type: :model do
 
 		context "checkout methods" do
 
-			it 
+			# it "returns a spot if user is currently on an existing spot" do
+			# 	@spot_1.save!
+				
+			# end
 			it "sets checkout to true" do
 				@spot_1.save!
 				# @spot_1.checkout?
 				expect{@spot_1.checkout?}.to change{@spot_1.checkout}.from(false).to(true)
 			end
+
 
 			it "sets checkout to true if precheckout was 5 minutes earlier" do
 				@spot_1.save!
@@ -56,6 +63,8 @@ RSpec.describe Spot, type: :model do
 				@spot_1.updated_at = Time.current - (5*60)
 				expect{@spot_1.timelapsed_checkout}.to change{@spot_1.checkout}.from(false).to(true)
 			end
+
+		
 
 			it "does not set checkout to true if precheckout was less than 5 minutes ago" do
 				@spot_1.save!

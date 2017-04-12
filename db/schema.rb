@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20170412140205) do
   end
 
   create_table "spots", force: :cascade do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",                     null: false
     t.float    "lat",                         null: false
     t.float    "lng",                         null: false
     t.boolean  "precheckout", default: false
