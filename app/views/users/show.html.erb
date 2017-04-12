@@ -1,17 +1,19 @@
 <div class="row">
-	
+
 		<div class="col-xs-6 col-md-4 top-buffer">
 			<div class="container">
 				<ul class="nav navbar-nav">
 					<li><%= link_to "Change Account Information", edit_user_registration_path %></li>
-		
+
 				</ul>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-8 top-buffer">
 			<div class="container">
-				<p>Points: <%=current_user.points%></p>
+				<p>Hello <%= current_user.username %> </p>
+				<p>You have <%=current_user.points%> points, and you are a spot <%= current_user.tier[:name] %> </p>
+				
 			</div>
 		</div>
-	
+
 </div>

@@ -133,7 +133,7 @@ $(document).ready(function() {
     })
   })
 
-  $("#check-out").on("click", function(e){
+  $("#spot-bottons").on("click", "#check-out", function(e){
     e.preventDefault();
     var spot_id = parseInt(this.name)
     $.ajax({

@@ -13,6 +13,10 @@ Spot.destroy_all
 10.times do |i|
   User.create(username: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(8), points: rand(10..25))
 end
+
+User.create(username: "Mike", email: "mike@gmail.com", password: "password", points: 49)
+User.create(username: "Sophia", email: "sophia@gmail.com", password: "password", points: 110)
+
 spot1 = Spot.create(user_id: 4, lat: 40.7098, lng: -74.0099)
 spot2 = Spot.create(user_id: 2, lat: 40.7031, lng: -74.0125)
 spot3 = Spot.create(user_id: 5, lat: 40.7099, lng: -74.0098)
