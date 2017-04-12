@@ -46,8 +46,7 @@ RSpec.describe Spot, type: :model do
 			end
 		end
 
-		context "checkout methods" do
-
+		context "checkout methods" do			
 
 			it "sets checkout to true" do
 				expect{spot.checkout?}.to change{spot.checkout}.from(false).to(true)
@@ -56,9 +55,9 @@ RSpec.describe Spot, type: :model do
 
 			it "sets checkout to true if precheckout was 5 minutes earlier" do
 				spot.precheckout = true
-				Timecop.travel(5*60) do
+				Timecop.travel(5*60) do	
 					expect{spot.timelapsed_checkout}.to change{spot.checkout}.from(false).to(true)
-				end
+				end		
 			end
 
 		
@@ -71,7 +70,9 @@ RSpec.describe Spot, type: :model do
 
 			it "destroys a spot if user checked out 2 minutes ago" do
 				spot.checkout = true
+
 				Timecop.travel(2*60) do
+
 					expect{spot.destroy_spot}.to change{Spot.count}
 				end
 			end
@@ -88,10 +89,16 @@ RSpec.describe Spot, type: :model do
 				expect{spot.points_awarded}.to change{spot.user.points}.by(2)
 			end
 
-			it "awards 1 points to user if user checksout" do
+			it "awards 1 points to user if user checks out" do
 				spot.checkout = true
 				expect{spot.points_awarded}.to change{spot.user.points}.by(1)
 			end
+		end
+
+		context "finder methods" do
+			# it "finds a spot in database by latitude and longitude" do
+			# 	expect(User.on_existing_spot(lat: 40.7098, lng: -74.0099)).to eq(spot)
+			# end
 		end
 
   end
