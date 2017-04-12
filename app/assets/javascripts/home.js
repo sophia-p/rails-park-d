@@ -55,7 +55,9 @@ $(document).ready(function() {
     e.preventDefault();
     USER_ID = parseInt(this.name)
     window.navigator.geolocation.getCurrentPosition(function(position){
-      coords = [position.coords.latitude, position.coords.longitude];
+      rounded_lat = Number((position.coords.latitude).toFixed(4));
+      rounded_lng = Number((position.coords.longitude).toFixed(4));
+      coords = [rounded_lat, rounded_lng];
       $.ajax({
         url: "/spots",
         method: "post",
@@ -75,15 +77,27 @@ $(document).ready(function() {
     e.preventDefault();
     var spot_id = parseInt(this.name)
     $.ajax({
-      url: "/spots/<%= spot_id %>",
-      method: "put",
+      url: "/spots/" + spot_id,
+      method: "patch",
       data: { spot: {
-        user_id: nil,
         precheckout: true
         }
       }
     }).done(function(response){
-      debugger;
+    })
+  })
+
+  $("#check-out").on("click", function(e){
+    e.preventDefault();
+    var spot_id = parseInt(this.name)
+    $.ajax({
+      url: "/spots/" + spot_id,
+      method: "patch",
+      data: { spot: {
+        checkout: true
+        }
+      }
+    }).done(function(response){
     })
   })
 

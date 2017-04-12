@@ -1,10 +1,11 @@
 class SpotsController < ApplicationController
-  def index
-    @spots = Spot.all
-  end
-
   def show
     @spot = Spot.find_by(params[:lat, :lng])
+  end
+
+  def index
+    Spot.spot_refresh
+    @spots = Spot.all
   end
 
   def new
@@ -12,31 +13,36 @@ class SpotsController < ApplicationController
   end
 
   def create
+    @old_spot = Spot.spot_in_range
+    @old_spot.points_awarded
+    @old_spot.destroy
     @spot = Spot.new(spot_params)
-
-    @spot.save
+    if Spot.where(user_id: current_user.id, precheckout: false, checkout: false).length == 0
+      @spot.save
+      redirect_to action: "index"
+    else
+      flash[:alert] = "You are already checked into a spot"
+    end
   end
 
   def edit
     @spot = Spot.find_by(params[:lat, :lng])
   end
 
+  def update
+    @spot = Spot.find_by(user_id: current_user.id)
+    @spot.update(spot_params)
+    redirect_to "/"
+  end
+
   def destroy
-    if Spot.find_by(params[:lat, :lng])
-      @spot = Spot.find_by(params[:lat, :lng])
-      if @spot.precheckout
-        @spot.user.precheckout_point
-      else
-        @spot.user.checkout_point
-      end
-      @spot.destroy
-    end
-      redirect_to spots_create
+    @spot = Spot.find_by(spot_params)
+    @spot.destroy
   end
 
 
   private
   def spot_params
-    params.require(:spot).permit(:user_id, :lat, :lng)
+    params.require(:spot).permit(:user_id, :lat, :lng, :precheckout, :checkout)
   end
 end
