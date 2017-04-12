@@ -2,7 +2,7 @@ class SpotsController < ApplicationController
 
   def index
     Spot.spot_refresh
-    @spots = Spot.all
+    @spots = Spot.available_spots
     render json: {:spots => @spots}
   end
 
@@ -15,7 +15,7 @@ class SpotsController < ApplicationController
   end
 
   def create
-    @old_spot = Spot.spot_in_range
+    @old_spot = Spot.on_existing_spot(spot_params)
     @old_spot.points_awarded
     @old_spot.destroy
     @spot = Spot.new(spot_params)
