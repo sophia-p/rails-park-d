@@ -21,11 +21,12 @@ class Spot < ApplicationRecord
 
 	def self.spots_in_range(args)
 		# 0.0034
-		tier = current_user.tier
+		tier = User.find(args[:user_id]).tier
 		range = tier[:radius]
 		lat_range = [args[:lat] - range, args[:lat] + range]
 		long_range = [args[:lng] - range, args[:lng] + range]
-		self.available_spots.where(lat: lat_range[0]..lat_range[1]).find(tier[:spots])
+		# byebug
+		self.available_spots.where(lat: lat_range[0]..lat_range[1]).limit(tier[:spots])
 	end
 
 	def self.available_spots
