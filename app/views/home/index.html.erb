@@ -1,5 +1,6 @@
 
-<h1 class="text-center">Welcome to Park'd</h1>
+<h1 class="text-center">Welcome to Park'd <%= current_user.username %> </h1>
+<h2 class="text-center">You are a spot sharing <%= current_user.tier[:name] %> </h2>
 <p class="text-center">Share a Spot - Find a Spot</p>
 <br>
 <%= render "/home/map" %>
