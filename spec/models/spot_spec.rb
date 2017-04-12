@@ -48,6 +48,20 @@ RSpec.describe Spot, type: :model do
 				expect{@spot_1.checkout?}.to change{@spot_1.checkout}.from(false).to(true)
 			end
 
+			it "sets checkout to true if precheckout was 5 minutes earlier" do
+				@spot_1.save!
+				@spot_1.precheckout =  true
+				@spot_1.updated_at = Time.current - (5*60)
+				expect{@spot_1.timelapsed_checkout}.to change{@spot_1.checkout}.from(false).to(true)
+			end
+
+			it "does not set checkout to true if precheckout was less than 5 minutes ago" do
+				@spot_1.save!
+				@spot_1.precheckout =  true
+				@spot_1.updated_at = Time.current - (2*60)
+				expect{@spot_1.timelapsed_checkout}.not_to change{@spot_1.checkout}
+			end
+
 			it "destroys a spot if user checked out 2 minutes ago" do
 				@spot_1.save!
 				@spot_1.checkout = true
@@ -65,6 +79,12 @@ RSpec.describe Spot, type: :model do
 				@spot_1.save!
 				@spot_1.precheckout = true
 				expect{@spot_1.points_awarded}.to change{@johndoe.points}.by(2)
+			end
+
+			it "awards 1 points to user if user checksout" do
+				@spot_1.save!
+				@spot_1.checkout = true
+				expect{@spot_1.points_awarded}.to change{@johndoe.points}.by(1)
 			end
 		end
 

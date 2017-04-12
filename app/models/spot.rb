@@ -52,10 +52,10 @@ class Spot < ApplicationRecord
 
 	def points_awarded
 		if self.precheckout
-      self.user.precheckout_point
-    else
-      self.user.checkout_point
-    end
+      		self.user.precheckout_point
+    	else
+      		self.user.checkout_point
+    	end
 	end
 
 
