@@ -7,7 +7,8 @@ $(document).ready(function() {
       var latLng = new google.maps.LatLng(jsonlatitude, jsonlong);
       var marker = new google.maps.Marker({
         position: latLng,
-        map: map
+        map: map,
+        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
       })
     }
   })
@@ -65,7 +66,8 @@ $(document).ready(function() {
                   var latLng = new google.maps.LatLng(jsonlatitude, jsonlong);
                   var marker = new google.maps.Marker({
                     position: latLng,
-                    map: map
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
                   })
                 }
               })
