@@ -44,7 +44,6 @@ $(document).ready(function() {
       geocoder = new google.maps.Geocoder();
       var marker = null;
       geocoder.geocode({'address' : address}, function(results, status){
-        console.log(1)
         if(status == 'OK') {
           map.setCenter(results[0].geometry.location);
           marker = new google.maps.Marker({

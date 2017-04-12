@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_one :spot
+  has_many :destinations
   validates :points, :username, presence: true
   validates :username, uniqueness: true
 
@@ -13,6 +14,10 @@ class User < ApplicationRecord
   	if self.spot && self.spot.checkout == true
   		active_spots << spot
   	end
+  end
+
+  def current_destination
+    self.destinations.last
   end
 
 

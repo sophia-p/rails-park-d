@@ -32,4 +32,5 @@ class Spot < ApplicationRecord
 	end
 
 
+
 end
