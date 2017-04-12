@@ -88,7 +88,7 @@ $(document).ready(function() {
       });
     });
 
-  $("#check-in").on("click", function(e){
+  $("#spot-bottons").on("click", "#check-in", function(e){
     e.preventDefault();
     USER_ID = parseInt(this.name)
     window.navigator.geolocation.getCurrentPosition(function(position){
@@ -105,12 +105,14 @@ $(document).ready(function() {
           }
         }
       }).done(function(response){
+        initMap();
+
       });
     });
 
   });
 
-  $("#precheckout").on("click", function(e){
+  $("#spot-bottons").on("click", "#precheckout", function(e){
     e.preventDefault();
     var spot_id = parseInt(this.name)
     $.ajax({
@@ -121,6 +123,7 @@ $(document).ready(function() {
         }
       }
     }).done(function(response){
+      initMap();
     })
   })
 
@@ -135,6 +138,8 @@ $(document).ready(function() {
         }
       }
     }).done(function(response){
+      debugger;
+      initMap();
     })
   })
 
@@ -154,6 +159,7 @@ $(document).ready(function() {
           }
         }
       }).done(function(response){
+        initMap();
       });
     });
 
@@ -169,7 +175,7 @@ var map, infoWindow;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -34.397, lng: 150.644},
-    zoom: 15
+    zoom: 16
   });
 
 }
