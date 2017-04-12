@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe Spot, type: :model do
   describe "validations" do
   	let (:spot_without_longitude) {Spot.new(lat: 48)}
-  	let (:spot_without_latitude) {Spot.new(long: 48)}
-  	let (:valid_spot) {Spot.new(lat: 30, long: 60)}
+  	let (:spot_without_latitude) {Spot.new(lng: 48)}
+  	let (:valid_spot) {Spot.new(lat: 30, lng: 60)}
 
 	it "must have a longitude" do
 		spot_without_longitude.valid?
-		expect(spot_without_longitude.errors[:long]).to_not be_empty
+		expect(spot_without_longitude.errors[:lng]).to_not be_empty
 	end
 
 	it "must have a longitude" do
@@ -22,17 +22,51 @@ RSpec.describe Spot, type: :model do
 
   end
 
-  describe "spot methods" do
+  describe "class methods" do
   		before(:each) do 
 			@johndoe = User.create!(username:"johndoe", email:"johndoe@email.com", password: "123456")
-			@spot_1 = Spot.new(long: 74, lat: 42)
+			@spot_1 = @johndoe.spots.new(lng: 74, lat: 42)
 		end
 
-		# it "has precheckout set to false upon insantiation" do
-		# 	@johndoe.spot = @spot_1
-		# 	@spot_1.save!
-		# 	expect(@spot_1.precheckout).to be false
-		# end
+		context "default values" do
+
+			it "has precheckout set to false upon insantiation" do		
+				@spot_1.save!
+				expect(@spot_1.precheckout).to be false
+			end
+
+			it "has checkout set to false upon insantiation" do		
+				@spot_1.save!
+				expect(@spot_1.checkout).to be false
+			end
+		end
+
+		context "checkout methods" do
+			it "sets checkout to true" do
+				@spot_1.save!
+				# @spot_1.checkout?
+				expect{@spot_1.checkout?}.to change{@spot_1.checkout}.from(false).to(true)
+			end
+
+			it "destroys a spot if user checked out 2 minutes ago" do
+				@spot_1.save!
+				@spot_1.checkout = true
+				@spot_1.updated_at = Time.current - (2*60)
+				expect{@spot_1.destroy_spot}.to change{@johndoe.spots.count}.by(-1)
+			end
+
+			it "does not destroy a spot if user checked out less than 2 minutes ago" do
+				@spot_1.save!
+				@spot_1.checkout = true
+				expect{@spot_1.destroy_spot}.to change{@johndoe.spots.count}.by(0)
+			end
+
+			it "awards 2 points to user if user prechecksout" do
+				@spot_1.save!
+				@spot_1.precheckout = true
+				expect{@spot_1.points_awarded}.to change{@johndoe.points}.by(2)
+			end
+		end
 
   end
 
