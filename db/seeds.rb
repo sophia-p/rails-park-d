@@ -9,6 +9,7 @@
 User.destroy_all
 Spot.destroy_all
 
+
 5.times do |i|
   User.create(username: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(8), points: rand(10..25))
 end
