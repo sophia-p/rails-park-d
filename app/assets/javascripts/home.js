@@ -94,6 +94,7 @@ $(document).ready(function() {
       }
     }).done(function(response){
       initMap();
+      $("#spot-buttons").html(response);
     })
   })
 

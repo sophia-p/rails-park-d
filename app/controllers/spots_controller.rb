@@ -44,7 +44,7 @@ class SpotsController < ApplicationController
   def update
     @spot = Spot.find_by(user_id: current_user.id)
     @spot.update(spot_params)
-    redirect_to "/"
+    render partial: "check_in-spot_taken"
   end
 
   def destroy
