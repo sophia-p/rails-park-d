@@ -1,9 +1,17 @@
 class SpotsController < ApplicationController
 
+  # def index
+  #   Spot.spot_refresh
+  #   @spots = Spot.available_spots
+  #   render json: {:spots => @spots}
+  # end
+
   def index
     Spot.spot_refresh
+    @user = current_user
     @spots = Spot.available_spots
-    render json: {:spots => @spots}
+    @local_spots = @spots.spots_in_range(lat: @user.current_destination.des_lat, lng: @user.current_destination.des_lng)
+    render json: {:spots => @local_spots}
   end
 
   def show

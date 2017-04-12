@@ -42,7 +42,7 @@ class Spot < ApplicationRecord
 	end
 
 	def destroy_spot
-		if self.checkout == true && self.updated_at < Time.current - (2*60)
+		if self.checkout == true && self.updated_at < Time.current - (15*60)
 			self.destroy
 		end
 	end
