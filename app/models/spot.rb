@@ -21,10 +21,12 @@ class Spot < ApplicationRecord
 
 	def self.spots_in_range(args)
 		# 0.0034
-		range = 0.0034
+		tier = User.find(args[:user_id]).tier
+		range = tier[:radius]
 		lat_range = [args[:lat] - range, args[:lat] + range]
 		long_range = [args[:lng] - range, args[:lng] + range]
-		self.available_spots.where(lat: lat_range[0]..lat_range[1])
+		# byebug
+		self.available_spots.where(lat: lat_range[0]..lat_range[1]).limit(tier[:spots])
 	end
 
 	def self.available_spots
@@ -42,7 +44,7 @@ class Spot < ApplicationRecord
 	end
 
 	def destroy_spot
-		if self.checkout == true && self.updated_at < Time.current - (2*60)
+		if self.checkout == true && self.updated_at < Time.current - (15*60)
 			self.destroy
 		end
 	end
