@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 	let(:user) {FactoryGirl.create(:user)}
+	let(:spot) {FactoryGirl.create(:spot)}
 
 	describe "validations" do
 		# let (:user_with_username) {User.new(username:"johndoe", email:"johndoe@email.com", password: "123456")}
@@ -31,9 +32,26 @@ RSpec.describe User, type: :model do
 	describe "methods" do
 		context "returns the tier object based on points" do
 			it "returns Rookie if user has 25 points or fewer" do
-				expect(user.tier).to eq ()				
+				expect(user.tier).to eq ({name: "Rookie", spots: 2, radius: 0.0034})				
 			end
 		end
+		context "checkout points" do
+			it "awards user 2 points" do
+				expect{user.precheckout_point}.to change{user.points}.by(2)
+			end
+
+			it "awards user 1 point" do
+				expect{user.checkout_point}.to change{user.points}.by(1)
+			end
+		end
+		# context "checkin/checkout methods" do
+		# 	it "returns array of spots after user has checked out of spot" do
+		# 		# spot.update(checkout: true)
+				
+		# 		expect(user.activate_spots).to include([spot])
+		# 	end
+		# end
+
 
 	end
 

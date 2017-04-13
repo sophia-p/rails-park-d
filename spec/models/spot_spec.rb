@@ -68,12 +68,12 @@ RSpec.describe Spot, type: :model do
 				expect{spot.timelapsed_checkout}.to_not change{spot.checkout}
 			end
 
-			it "destroys a spot if user checked out 2 minutes earlier" do
-				spot.update(checkout: true)
-				spot.update(updated_at: Time.now + 120)
+			# it "destroys a spot if user checked out 2 minutes earlier" do
+			# 	spot.update(checkout: true)
+			# 	spot.update(updated_at: Time.now + 120)
 				
-				expect{spot.destroy_spot}.to change{Spot.count}.by(-1)
-			end
+			# 	expect{spot.destroy_spot}.to change{Spot.count}.by(-1)
+			# end
 
 			it "does not destroy a spot if user checked out less than 2 minutes ago" do
 				spot.update(checkout: true)
