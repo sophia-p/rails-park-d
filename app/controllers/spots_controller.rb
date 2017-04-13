@@ -50,11 +50,11 @@ class SpotsController < ApplicationController
   def destroy
     if Spot.find_by(spot_params)
       Spot.find_by(spot_params).destroy
-      flash[:spot_taken] = "Sorry that spot was taken. Let's find you another spot."
+      render json: {notice: "Sorry that spot was taken. Let's find you another spot."}
     else
-      flash[:no_spot] = "We don't have a spot listed there."
+      render json: {notice: "We don't have a spot listed there."}
     end
-    redirect_to "index"
+
   end
 
 
