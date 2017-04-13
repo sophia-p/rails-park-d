@@ -14,8 +14,8 @@ class Spot < ApplicationRecord
 
 	def self.on_existing_spot(args)
 		# +/-0.0001
-		round_lat = args[:lat].to_i.round(4)
-		round_lng = args[:lng].to_i.round(4)
+		round_lat = args[:lat].to_f.round(4)
+		round_lng = args[:lng].to_f.round(4)
 		self.find_by(lat: round_lat, lng: round_lng)
 	end
 
