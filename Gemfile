@@ -52,6 +52,7 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.0"
   gem "timecop"
   gem 'simplecov', :require => false, :group => :test
+  # gem 'warden-rspec-rails'
 end
 
 group :development do
