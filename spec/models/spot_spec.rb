@@ -62,27 +62,25 @@ RSpec.describe Spot, type: :model do
 
 		
 			it "does not set checkout to true if precheckout was less than 5 minutes earlier" do
-				# spot.update(precheckout: true)
-				Timecop.travel(2*60) do
+				spot.update(precheckout: true)
+				spot.update(updated_at: Time.now+60)
 
-				end
-				
-				# expect{spot.timelapsed_checkout}.to_not change{spot.checkout}
+				expect{spot.timelapsed_checkout}.to_not change{spot.checkout}
 			end
 
 			it "destroys a spot if user checked out 2 minutes earlier" do
-				Timecop.travel(2*60) do
-					
-					spot.update(checkout: true)
-				end
+				spot.update(checkout: true)
+				spot.update(updated_at: Time.now + 120)
 				
+				expect{spot.destroy_spot}.to change{Spot.count}.by(-1)
 			end
 
 			it "does not destroy a spot if user checked out less than 2 minutes ago" do
-				spot.checkout = true
-				Timecop.travel(60) do
+				spot.update(checkout: true)
+				spot.update(updated_at: Time.now + 60)
+
 				expect{spot.destroy_spot}.to change{Spot.count}.by(0)
-				end
+
 			end
 
 			it "awards 2 points to user if user prechecks out" do

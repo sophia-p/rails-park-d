@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+	let(:user) {FactoryGirl.create(:user)}
+
 	describe "validations" do
-		let(:user) {FactoryGirl.create(:user)}
 		# let (:user_with_username) {User.new(username:"johndoe", email:"johndoe@email.com", password: "123456")}
 		let (:user_without_username) {FactoryGirl.build(:user, username:"", password:"123456")}
 
@@ -26,6 +27,14 @@ RSpec.describe User, type: :model do
 				second_user = User.new(username:"johndoe", email:"john@doe.com", password: "123456")
 				expect{second_user.save!}.to raise_error(ActiveRecord::RecordInvalid)
 			end
+	end
+	describe "methods" do
+		context "returns the tier object based on points" do
+			it "returns Rookie if user has 25 points or fewer" do
+				expect(user.tier).to eq ()				
+			end
+		end
+
 	end
 
 
