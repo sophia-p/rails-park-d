@@ -25,7 +25,9 @@ class SpotsController < ApplicationController
   def create
     if Spot.on_existing_spot(spot_params)
       @old_spot = Spot.on_existing_spot(spot_params)
-      @old_spot.points_awarded
+      if !@old_spot.current_user
+        @old_spot.points_awarded
+      end
       @old_spot.destroy
     end
     @spot = Spot.new(spot_params)
