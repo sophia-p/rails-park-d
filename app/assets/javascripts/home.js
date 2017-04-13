@@ -132,6 +132,8 @@ $(document).ready(function() {
         }
       }).done(function(response){
         initMap();
+        // debugger;
+        $("#spot-buttons").append(response["notice"])
       });
     });
 
