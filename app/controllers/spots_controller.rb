@@ -8,12 +8,9 @@ class SpotsController < ApplicationController
 
   def index
     Spot.spot_refresh
-    @user = current_user
-    if @user.current_destination
-      @local_spots = Spot.spots_in_range(lat: @user.current_destination.des_lat, lng: @user.current_destination.des_lng, user_id: current_user.id)
-    else
-      @local_spots = Spot.spots_in_range(lat: params[:lat].to_i, lng: params[:lng].to_i, user_id: current_user.id)
-    end
+
+    @local_spots = Spot.spots_in_range(lat: params[:lat].to_f, lng: params[:lng].to_f, user_id: current_user.id)
+
     render json: {:spots => @local_spots}
   end
 
@@ -28,13 +25,15 @@ class SpotsController < ApplicationController
   def create
     if Spot.on_existing_spot(spot_params)
       @old_spot = Spot.on_existing_spot(spot_params)
-      @old_spot.points_awarded
+      if @old_spot.user != current_user
+        @old_spot.points_awarded
+      end
       @old_spot.destroy
     end
     @spot = Spot.new(spot_params)
     if Spot.where(user_id: current_user.id, precheckout: false, checkout: false).length == 0
       @spot.save
-      redirect_to "index"
+      render partial: "precheckout-checkout"
     else
       flash[:already_checkedin] = "You are already checked into a spot"
     end
@@ -47,17 +46,17 @@ class SpotsController < ApplicationController
   def update
     @spot = Spot.find_by(user_id: current_user.id)
     @spot.update(spot_params)
-    redirect_to "/"
+    render partial: "check_in-spot_taken"
   end
 
   def destroy
     if Spot.find_by(spot_params)
       Spot.find_by(spot_params).destroy
-      flash[:spot_taken] = "Sorry that spot was taken. Let's find you another spot."
+      render json: {notice: "Sorry that spot was taken. Let's find you another spot."}
     else
-      flash[:no_spot] = "We don't have a spot listed there."
+      render json: {notice: "We don't have a spot listed there."}
     end
-    redirect_to "index"
+
   end
 
 
