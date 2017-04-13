@@ -50,7 +50,13 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails'
   gem 'rails-controller-testing'
-  # gem 'faker'
+
+  gem 'faker'
+  gem "factory_girl_rails", "~> 4.0"
+  gem "timecop"
+  gem 'simplecov', :require => false, :group => :test
+  # gem 'warden-rspec-rails'
+
 end
 
 group :development do
