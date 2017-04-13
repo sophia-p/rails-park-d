@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
   initMap();
 
@@ -58,7 +59,7 @@ $(document).ready(function() {
       });
     });
 
-  $("#spot-bottons").on("click", "#check-in", function(e){
+  $("#spot-buttons").on("click", "#check-in", function(e){
     e.preventDefault();
     USER_ID = parseInt(this.name)
     window.navigator.geolocation.getCurrentPosition(function(position){
@@ -76,13 +77,13 @@ $(document).ready(function() {
         }
       }).done(function(response){
         initMap();
-
+        $("#spot-buttons").html(response);
       });
     });
 
   });
 
-  $("#spot-bottons").on("click", "#precheckout", function(e){
+  $("#spot-buttons").on("click", "#precheckout", function(e){
     e.preventDefault();
     var spot_id = parseInt(this.name)
     $.ajax({
@@ -94,10 +95,11 @@ $(document).ready(function() {
       }
     }).done(function(response){
       initMap();
+      $("#spot-buttons").html(response);
     })
   })
 
-  $("#spot-bottons").on("click", "#check-out", function(e){
+  $("#spot-buttons").on("click", "#check-out", function(e){
     e.preventDefault();
     var spot_id = parseInt(this.name)
     $.ajax({
@@ -109,11 +111,12 @@ $(document).ready(function() {
       }
     }).done(function(response){
       initMap();
+      $("#spot-buttons").html(response);
     })
   })
 
 
-  $("#spot-taken").on("click", function(e){
+  $("#spot-buttons").on("click", "#spot-taken", function(e){
     e.preventDefault();
     window.navigator.geolocation.getCurrentPosition(function(position){
       rounded_lat = Number((position.coords.latitude).toFixed(4));

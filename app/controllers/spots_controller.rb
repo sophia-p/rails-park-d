@@ -31,7 +31,7 @@ class SpotsController < ApplicationController
     @spot = Spot.new(spot_params)
     if Spot.where(user_id: current_user.id, precheckout: false, checkout: false).length == 0
       @spot.save
-      redirect_to "index"
+      render partial: "precheckout-checkout"
     else
       flash[:already_checkedin] = "You are already checked into a spot"
     end
@@ -44,7 +44,7 @@ class SpotsController < ApplicationController
   def update
     @spot = Spot.find_by(user_id: current_user.id)
     @spot.update(spot_params)
-    redirect_to "/"
+    render partial: "check_in-spot_taken"
   end
 
   def destroy
