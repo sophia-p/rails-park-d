@@ -7,6 +7,12 @@ If you have Ruby and Rails 5 installed
 
 Visit [Park'd](https://park-d.herokuapp.com/) to sign-up for an account and use the App.
 
+* This app is populated with demo data
+
+* You can sign in as 'hansolo@email.com' with password "password"
+
+* You will be trying to park in New York's Financial District
+
 * "Check in" if you are about to park in an available spot
 * Click "Spot Taken" if a spot marked available has been taken
 * Click "Pre-Checkout" if you are vacating a spot in 5 minutes
